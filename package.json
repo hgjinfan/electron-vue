@@ -5,16 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd ./render && npm run serve & wait-on http://localhost:8080 && npm run serve",
+    "client": "cd ./render && npm run serve",
+    "onlyMac": "npm run client & wait-on http://localhost:8080 && npm run serve",
     "prestart": "echo start",
-    "serve": "nodemon --watch ./index.js --exec electron ."
+    "serve": "nodemon --watch ./index.js --exec electron .",
+    "start": "concurrently \"npm run client\" \"wait-on http://localhost:8080 && npm run serve\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.2",
     "electron": "^8.2.1",
     "nodemon": "^2.0.3",
+    "shelljs": "^0.8.3",
     "wait-on": "^4.0.2"
   }
 }
